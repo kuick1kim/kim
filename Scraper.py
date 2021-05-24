@@ -1,64 +1,135 @@
-from bs4 import BeautifulSoup
-import json
 import requests
+from pandas import DataFrame
+from bs4 import BeautifulSoup
 import re
-import time, os
 from datetime import datetime
+import os
+from selenium import webdriver
+import openpyxl 
+import json
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email import encoders
+
+date = str(datetime.now())
+date = date[:date.rfind(':')].replace(' ', '_')
+date = date.replace(':','시') + '분'
+
+
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# BASE_DIR = os.path.dirname(os.path.getcwd(__file__))
+# query = input('검색 키워드를 입력하세요 : ')
 
-print('뉴스기사 스크래핑 시작')
-
-def post_message(channel, text): 
-    SLACK_BOT_TOKEN = "xoxb-2112022842768-2085165280581-QPcIPXDvyRNajovLGETxPjSw"
-    headers = {
-        'Content-Type': 'application/json', 
-        'Authorization': 'Bearer ' + SLACK_BOT_TOKEN
-        }
-    payload = {'channel': channel,'text': text}
-    r = requests.post('https://slack.com/api/chat.postMessage', 
-        headers=headers, 
-        data=json.dumps(payload)
-        )
+# news_num = int(input('총 필요한 뉴스기사 수를 입력해주세요(숫자만 입력) : '))
+# query = query.replace(' ', '+')
 
 
-if __name__ == '__main__':
-    post_message("#stock", "새로운 뉴스 스크랩 끝.")
-
-req = requests.get('https://www.yna.co.kr/news?site=navi_latest_depth01')
-time.sleep(3)
-req.encoding= None
-html = req.content
-soup = BeautifulSoup(html, 'html.parser')
+news_url = 'https://search.naver.com/search.naver?where=news&sm=tab_jum&query=수지' #네이버뉴스
 
 
+req = requests.get(news_url)
+soup = BeautifulSoup(req.text, 'html.parser')
 
-datas = soup.select('#container > div > div > div.section01 > section > div.list-type038 > ul > li')
-print('There are %d reviews avaliable!' % len(datas))
+
+news_dict = {}
+idx = 0
+cur_page = 1
+
+print()
+print('네이버 크롤링 중... 주기도문을 외우세요')
+# area_list = [li.find('div', {'class' : 'news_area'}) for li in li_list]a_list
+while idx < 50:
+### 네이버 뉴스 웹페이지 구성이 바뀌어 태그명, class 속성 값 등을 수정함(20210126) ###
+    
+    table = soup.find('ul',{'class' : 'list_news'})
+    li_list = table.find_all('li', {'id': re.compile('sp_nws.*')})
+    area_list = [li.find('div', {'class' : 'news_area'}) for li in li_list]
+    # kkk = soup.find('[li.find('a', {'class' : 'dsc_thumb'}.get('src' + '.jpg')) for li in li_list]
+    a_list = [area.find('a', {'class' : 'news_tit'}) for area in area_list]
+    
+    for n in a_list[:min(len(a_list), 50-idx)]:
+        news_dict[idx] = {'title' : n.get('title'),
+                          'url' : n.get('href') , '신문사' : str() }
+
+                          
+        idx += 1
+
+    cur_page += 1
+
+    pages = soup.find('div', {'class' : 'sc_page_inner'})
+    next_page_url = [p for p in pages.find_all('a') if p.text == str(cur_page)][0].get('href')
+    
+    req = requests.get('https://search.naver.com/search.naver' + next_page_url)
+    soup = BeautifulSoup(req.text, 'html.parser')
+
+print('네이버 크롤링 완료')
+
+print('데이터프레임 변환')
 
 
-data = {}
 
-for title in datas:   
-    bbb2 = title.find("div" , class_='item-box01')
-    bbb1 = title.find("div" , class_='news-con')
-    try :
-        name99 = bbb1.find_all('a')[0].text.replace('\n', '')
-        name = name99.replace('\"', '>" ')
-        url = 'http:'+title.find('a')['href']
-        name2 = title.find_all('p', class_='lead')[0].text
-        name3 = name2.replace('\n', '')
-    except :
-        pass
-    data[name] = '기사요약-> ' + name3 + '            URL 주소는 여기---> ' + url
-    print('기사요약')
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.getcwd()
 
 
 with open(os.path.join(BASE_DIR, 'news.json'), 'w+',encoding='utf-8') as json_file:
-    json.dump(data, json_file, ensure_ascii = False, indent='\t')
-    print('저장됨')
+    json.dump(news_dict, json_file, ensure_ascii = False, indent='\t')
+    
 
 
-print('뉴스기사 스크래핑 끝')
-print('뉴스기사 스크래핑 끝')
+news_df = DataFrame(news_dict).T
 
+folder_path = os.getcwd()
+xlsx_file_name = 'NAVER_{}.xlsx'.format(date)
+
+news_df.to_excel(xlsx_file_name)
+
+
+
+# 보내는 사람 정보
+me = "kuick1@hanmail.net"
+my_password = "kmskms4869@"
+
+# 로그인하기
+s = smtplib.SMTP_SSL('smtp.daum.net')
+s.login(me, my_password)
+
+# 받는 사람 정보
+you = "kuick1@hanmail.net"
+
+# 메일 기본 정보 설정
+msg = MIMEMultipart('alternative')
+msg['Subject'] = "김민상이 보냈습니다"
+msg['From'] = me
+msg['To'] = you
+
+# 메일 내용 쓰기
+content = "내용 없음"
+part2 = MIMEText(content, 'plain')
+msg.attach(part2)
+
+part = MIMEBase('application', "octet-stream")
+with open('NAVER_{}.xlsx'.format(date), 'rb') as file:
+    part.set_payload(file.read())
+encoders.encode_base64(part)
+part.add_header('Content-Disposition', "attachment", filename='NAVER_{}.xlsx'.format(date)) # 첨부파일 이름
+# msg.attach(part)
+
+part = MIMEBase('application', "octet-stream")
+with open('news.json', 'rb') as file:
+    part.set_payload(file.read())
+encoders.encode_base64(part)
+part.add_header('Content-Disposition', "attachment", filename='news.json') # 첨부파일 이름
+msg.attach(part)
+
+
+# 메일 보내고 서버 끄기
+s.sendmail(me, you, msg.as_string())
+s.quit()
+print()
+print('메일까지 잘......보냈습니다.')
