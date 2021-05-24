@@ -34,6 +34,8 @@ soup = BeautifulSoup(html, 'html.parser')
 
 
 datas = soup.select('#container > div > div > div.section01 > section > div.list-type038 > ul > li')
+print('There are %d reviews avaliable!' % len(datas))
+
 
 data = {}
 
@@ -49,13 +51,14 @@ for title in datas:
     except :
         pass
     data[name] = '기사요약-> ' + name3 + '            URL 주소는 여기---> ' + url
+    print('기사요약')
 
 
 with open(os.path.join(BASE_DIR, 'news.json'), 'w+',encoding='utf-8') as json_file:
     json.dump(data, json_file, ensure_ascii = False, indent='\t')
+    print('저장됨')
 
 
-print('뉴스기사 스크래핑 끝')
 print('뉴스기사 스크래핑 끝')
 print('뉴스기사 스크래핑 끝')
 
