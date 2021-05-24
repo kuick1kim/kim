@@ -35,10 +35,5 @@ jobs:
         git config --local user.name "Auto_Scraping_Name" # 커밋에 포함될 이름
         git add news.json
         git commit -m "Auto - Update data with Scraping" # 커밋 메세지
-    - name: Push
-      uses: ad-m/github-push-action@master
-      with:
-        branch: 'master'
-        github_token: $ 
-        
+
 
