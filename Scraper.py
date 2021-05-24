@@ -6,7 +6,7 @@ import requests
 import re
 import time, os
 from datetime import datetime
-import pandas as pd
+
 
 
 date = str(datetime.now())
