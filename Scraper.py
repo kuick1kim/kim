@@ -1,10 +1,9 @@
-import json
-import requests
-from pandas import DataFrame
-import re
-import openpyxl 
-from selenium import webdriver
 from bs4 import BeautifulSoup
+
+import json
+
+import requests
+import re
 import time, os
 from datetime import datetime
 import pandas as pd
