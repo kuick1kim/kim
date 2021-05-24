@@ -1,22 +1,9 @@
 from bs4 import BeautifulSoup
-
 import json
-
 import requests
 import re
 import time, os
 from datetime import datetime
-
-
-
-date = str(datetime.now())
-date = date[:date.rfind(':')].replace(' ', '_')
-date = date.replace(':','시') + '분'
-
-
-
-
-
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,22 +33,13 @@ soup = BeautifulSoup(html, 'html.parser')
 
 
 
-
-# req = requests.get('https://www.yna.co.kr/safe/news')
-# time.sleep(3)
-# req.encoding= None
-# html = req.content
-# soup = BeautifulSoup(driver.page_source, 'html.parser')
 datas = soup.select('#container > div > div > div.section01 > section > div.list-type038 > ul > li')
-# print('There are %d reviews avaliable!' % len(datas))
 
 data = {}
-
 
 for title in datas:   
     bbb2 = title.find("div" , class_='item-box01')
     bbb1 = title.find("div" , class_='news-con')
-    
     try :
         name99 = bbb1.find_all('a')[0].text.replace('\n', '')
         name = name99.replace('\"', '>" ')
@@ -71,11 +49,6 @@ for title in datas:
     except :
         pass
     data[name] = '기사요약-> ' + name3 + '            URL 주소는 여기---> ' + url
-    # print(url)
-    # print(name)
-    # print(name2)
-    
-
 
 
 with open(os.path.join(BASE_DIR, 'news.json'), 'w+',encoding='utf-8') as json_file:
@@ -86,17 +59,3 @@ print('뉴스기사 스크래핑 끝')
 print('뉴스기사 스크래핑 끝')
 print('뉴스기사 스크래핑 끝')
 
-
-if __name__ == '__main__':
-    post_message("#stock", "새로운 뉴스 스크랩 끝.")
-
-
-
-
-# folder_path = os.getcwd()
-# driver.get_screenshot_as_file('사람인1.png')
-# driver.quit()
-# os.startfile(folder_path)
-
-
-# driver.quit()
