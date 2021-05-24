@@ -120,12 +120,12 @@ encoders.encode_base64(part)
 part.add_header('Content-Disposition', "attachment", filename='NAVER_{}.xlsx'.format(date)) # 첨부파일 이름
 # msg.attach(part)
 
-part = MIMEBase('application', "octet-stream")
-with open('news.json', 'rb') as file:
-    part.set_payload(file.read())
-encoders.encode_base64(part)
-part.add_header('Content-Disposition', "attachment", filename='news.json') # 첨부파일 이름
-msg.attach(part)
+# part = MIMEBase('application', "octet-stream")
+# with open('news.json', 'rb') as file:
+#     part.set_payload(file.read())
+# encoders.encode_base64(part)
+# part.add_header('Content-Disposition', "attachment", filename='news.json') # 첨부파일 이름
+# msg.attach(part)
 
 
 # 메일 보내고 서버 끄기
