@@ -1,7 +1,7 @@
 import requests
 import json
 def post_message(channel, text): 
-    SLACK_BOT_TOKEN = "xoxb-2112022842768-2109250491412-wYLSZP3VYP4GBw18qplmcXj6"
+    SLACK_BOT_TOKEN = "xoxb-2112022842768-2109250491412-gaoNedXZwO2FGkmx7D3TpDfH"
     headers = {
         'Content-Type': 'application/json', 
         'Authorization': 'Bearer ' + SLACK_BOT_TOKEN
