@@ -43,6 +43,4 @@ jobs:
         git add news.json
         git commit -m "Auto - Update data with Scraping" # 커밋 메세지
         
-    - name: Test with pytest
-      run: |
-        pytest
+    
