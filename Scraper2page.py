@@ -21,7 +21,7 @@ data = {}
 
 
 
-for p in range(1, 3+1, 1): #2개임 현재
+for p in range(1, 2+1, 1): #2개임 현재
     req = requests.get("https://www.yna.co.kr/news/{p}".format(p = p))
     req.encoding= None
     html = req.content
