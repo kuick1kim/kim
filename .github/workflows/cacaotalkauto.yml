@@ -2,7 +2,7 @@ name: Upload Python Package
 
 on:
   schedule:
-    - cron:  '*/30 * * * *' # 주기적으로 실행하기 위한 스케줄링 - cron 설정
+    - cron:  '*/17 * * * *' # 주기적으로 실행하기 위한 스케줄링 - cron 설정
   push:
     branches: [ main ]
   pull_request:
