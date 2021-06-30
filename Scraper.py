@@ -91,8 +91,8 @@ msg['To'] = you
 link1 = "http://www.stocksignals.co.kr:8080/stockguest/0102.php"
 
 link2 = "https://finance.daum.net/domestic/investors/DERIVATIVES"
-content1 = str(link2) 
-content2 = str(link1)
+content1 = str(link2) + "         "
+content2 = str(link1) + "         "
 content3 = str(df2)
 part2 = MIMEText(content1, 'plain')
 part3 = MIMEText(content2, 'plain')
