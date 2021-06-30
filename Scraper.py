@@ -17,7 +17,6 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email import encoders
 
-
 pd.set_option('display.max_row', 500)
 pd.set_option('display.max_columns', 100)
 
