@@ -220,7 +220,7 @@ msg['To'] = you
 link1 = "http://www.stocksignals.co.kr:8080/stockguest/0102.php"
 
 link2 = "https://finance.daum.net/domestic/investors/DERIVATIVES"
-content1 = str(link2) + "         " +str(link1) + "         " + str(df2) +"                                                                                                                       " + str(result)
+content1 = str(link2) + "         " +str(link1) + "         " + str(df2) +"                                                                                               " + str(result)
 part2 = MIMEText(content1, 'plain')
 msg.attach(part2)
 
