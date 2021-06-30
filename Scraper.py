@@ -17,6 +17,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email import encoders
 
+
 pd.set_option('display.max_row', 500)
 pd.set_option('display.max_columns', 100)
 
@@ -189,13 +190,19 @@ save_df = pd.concat([df,df3,df5,df10,df20], axis=1)
 
 
 
-# folder_path = os.getcwd()
+
+folder_path = os.getcwd()
+
 df2.to_csv('오늘의옵션가격{d}.csv'.format(d = date), index=False, encoding='utf-8-sig')
-# os.startfile(folder_path)
 save_df.to_csv('오늘의옵션매매동향{d}.csv'.format(d = date), index=False, encoding='utf-8-sig')
+os.startfile(folder_path)
 
 
 
+# ///////////////////////////////////////////////////
+# /////////////////////////////////////////////////
+# /////////////////////////////////////////////////
+# /////////////////////////////////////////////////
 
 
 # 보내는 사람 정보
@@ -216,13 +223,9 @@ msg['From'] = me
 msg['To'] = you
 
 # 메일 내용 쓰기
-link1 = "http://www.stocksignals.co.kr:8080/stockguest/0102.php"
-
-link2 = "https://finance.daum.net/domestic/investors/DERIVATIVES"
-content1 = str(link2) + "         " +str(link1) + "         " + str(df2) +"                                                  " + str(result)
-part2 = MIMEText(content1, 'plain')
+content = str(df2) +"                                                                                                                            " + str(result)
+part2 = MIMEText(content, 'plain')
 msg.attach(part2)
-
 
 
 
@@ -234,14 +237,14 @@ encoders.encode_base64(part)
 part.add_header('Content-Disposition', "attachment", filename='오늘의옵션가격{d}.csv'.format(d = date)) # 첨부파일 이름
 msg.attach(part)
 
+
+
 part = MIMEBase('application', "octet-stream")
 with open('오늘의옵션매매동향{d}.csv'.format(d = date), 'rb') as file:
     part.set_payload(file.read())
 encoders.encode_base64(part)
 part.add_header('Content-Disposition', "attachment", filename='오늘의옵션매매동향{d}.csv'.format(d = date)) # 첨부파일 이름
 msg.attach(part)
-
-
 
 
 
