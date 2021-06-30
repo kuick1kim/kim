@@ -37,7 +37,7 @@ jobs:
         
     - name: Commits
       run: |
-        git config --local user.email "kuick1@daum.net"
+        
         git config --local user.email "kuick1@hanmail.net"
         git config --local user.name "Auto_Option_Price" # 커밋에 포함될 이름
        
