@@ -15,14 +15,15 @@ from pandas import DataFrame
 # pd.option_context('display.max_rows', None, 'display.max_columns', None)
 pd.set_option('display.max_seq_items', None)
 # pd.set_option('display.max_columns', 500)
-pd.set_option('display.max_rows', 500)
+# pd.set_option('display.max_rows', 500)
+pd.get_option("display.max_columns")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # pd.set_option('display.max_rows')
 print('뉴스기사 스크래핑 시작')
 
-df = pd.DataFrame(columns=['일반기사제목', '기사내용', '기사링크'])
+df = pd.DataFrame(columns=['일반기사제목', '기사링크'])
 data = {}
 
 for p in range(1, 2+1, 1): #2개임 현재
@@ -46,7 +47,6 @@ for p in range(1, 2+1, 1): #2개임 현재
         data[name] = '기사요약-> ' + name3 + '            URL 주소는 여기---> ' + url
         df = df.append({
         '일반기사제목': name,
-        '기사내용': name3,
         '기사링크': url
     }, ignore_index=True)
     print()   
@@ -57,7 +57,7 @@ print('일반기사 스크랩 완료')
 
 
 # 경제뉴스 모으기
-df2 = pd.DataFrame(columns=['경제기사제목', '기사내용', '기사링크'])
+df2 = pd.DataFrame(columns=['경제기사제목', '기사링크'])
 data2 = {}
 for p in range(1, 2+1, 1): #2개임 현재
     reqe = requests.get("https://www.yna.co.kr/economy/all/{p}".format(p = p))
@@ -80,7 +80,6 @@ for p in range(1, 2+1, 1): #2개임 현재
         data2[namee] = '기사요약-> ' + namee3 + '            URL 주소는 여기---> ' + urle
         df2 = df2.append({
         '경제기사제목': namee,
-        '기사내용': namee3,
         '기사링크': urle
     }, ignore_index=True)
         
@@ -99,6 +98,7 @@ with open(os.path.join(BASE_DIR, 'news2e.json'), 'w+',encoding='utf-8') as json_
     # print('저장됨')
 
 print('뉴스기사 스크래핑 끝')
+
 
 news_df = DataFrame(df).T
 news_df = DataFrame(df2).T
@@ -134,6 +134,7 @@ msg = MIMEMultipart('alternative')
 msg['Subject'] = "김민상이 보냈습니다"
 msg['From'] = me
 msg['To'] = you
+
 
 # 메일 내용 쓰기
 content = str(df) + str(df2)
