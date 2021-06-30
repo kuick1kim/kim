@@ -12,6 +12,7 @@ from email.mime.text import MIMEText
 from email import encoders
 from pandas import DataFrame
 
+pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
