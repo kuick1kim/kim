@@ -191,11 +191,11 @@ save_df = pd.concat([df,df3,df5,df10,df20], axis=1)
 
 
 
-folder_path = os.getcwd()
+
 
 df2.to_csv('오늘의옵션가격{d}.csv'.format(d = date), index=False, encoding='utf-8-sig')
 save_df.to_csv('오늘의옵션매매동향{d}.csv'.format(d = date), index=False, encoding='utf-8-sig')
-os.startfile(folder_path)
+
 
 
 
