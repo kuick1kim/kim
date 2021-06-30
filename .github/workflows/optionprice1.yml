@@ -37,10 +37,7 @@ jobs:
         
     - name: Commits
       run: |
-        
-        git config --local user.email "kuick1@hanmail.net"
         git config --local user.name "Auto_Option_Price" # 커밋에 포함될 이름
-       
         git commit -m "Auto - Update data with Scraping" # 커밋 메세지
 
 
