@@ -35,10 +35,4 @@ jobs:
       run: |
         python "Scraper.py"
         
-    - name: Commits
-      run: |
-        git config --local user.email "kuick1@daum.net"
-        git config --local user.email "kuick1@hanmail.net"
-        git config --local user.name "Auto_Scraping_Name" # 커밋에 포함될 이름
-        git add news.json
-        git commit -m "Auto - Update data with Scraping" # 커밋 메세지
+
