@@ -13,8 +13,6 @@ from email import encoders
 from pandas import DataFrame
 
 
-pd.set_option('display.max_row', 500)
-pd.set_option('display.max_columns', 100)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
