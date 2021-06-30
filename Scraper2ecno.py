@@ -12,12 +12,15 @@ from email.mime.text import MIMEText
 from email import encoders
 from pandas import DataFrame
 
+# pd.set_option('display.max_rows', None)
+# pd.set_option('display.max_columns', None)
+# pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', -1)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # pd.set_option('display.max_rows')
-print('뉴스기사 스크래핑 시작')
+# print('뉴스기사 스크래핑 시작')
 
 df = pd.DataFrame(columns=['일반기사제목', '기사링크'])
 data = {}
@@ -36,8 +39,10 @@ for p in range(1, 2+1, 1): #2개임 현재
             name99 = bbb1.find_all('a')[0].text.replace('\n', '')
             name = name99.replace('\"', '>" ')
             url = 'http:'+title.find('a')['href']
+            # url = url2 + "?section=news"
             name2 = title.find_all('p', class_='lead')[0].text
             name3 = name2.replace('\n', '')
+            
         except :
             pass
         data[name] = '기사요약-> ' + name3 + '            URL 주소는 여기---> ' + url
@@ -49,7 +54,7 @@ for p in range(1, 2+1, 1): #2개임 현재
     print()
     print()
         
-print('일반기사 스크랩 완료')
+# print(df)
 
 
 # 경제뉴스 모으기
@@ -80,11 +85,18 @@ for p in range(1, 2+1, 1): #2개임 현재
     }, ignore_index=True)
         
         
-
+print(df2)
 
 print('경제기사 스크랩 완료')
+df3 = pd.DataFrame(columns=['1'])
 
-
+for i in range(5):
+    d = 1123123123123123
+    k = '---------이 다음은 경제뉴스-----------'
+    df3 = df3.append({
+        '1': k}, ignore_index=True)
+    # df3.append(i)
+print(df3)
 
 
 with open(os.path.join(BASE_DIR, 'news.json'), 'w+',encoding='utf-8') as json_file:
@@ -133,7 +145,7 @@ msg['To'] = you
 
 
 # 메일 내용 쓰기
-content = str(df) + str(df2)
+content = str(df) + str(df3)+ str(df2)
 part2 = MIMEText(content, 'plain')
 msg.attach(part2)
 
@@ -162,5 +174,3 @@ s.sendmail(me, you, msg.as_string())
 s.quit()
 print()
 print('이메일까지 잘......보냈습니다.')
-
-
