@@ -223,7 +223,7 @@ msg['From'] = me
 msg['To'] = you
 
 # 메일 내용 쓰기
-content = str(df2) +"                                                                                                                            " + str(result)
+content = str(df2) +"                                                                              " + str(result)
 part2 = MIMEText(content, 'plain')
 msg.attach(part2)
 
