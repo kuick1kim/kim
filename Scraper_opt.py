@@ -21,10 +21,14 @@ date = date.replace(':','시') + '분'
 options = webdriver.ChromeOptions()
 
 
-options.add_argument("--headless")
-options.add_argument("window-size=1000,2500")
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')              
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument("window-size=1000,2500")
 
-driver = webdriver.Chrome('c:\kim\selenium\chromedriver.exe', chrome_options=options)
+driver = webdriver.Chrome(chrome_driver, options=chrome_options)
 
 url1 = 'http://www.paxnet.co.kr/stock/sise/trend/subject?searchTerm=1'
 driver.get(url1)
