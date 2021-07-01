@@ -39,6 +39,6 @@ jobs:
         pip install setuptools wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
-    - name: Run Scraper with python
+    - name: Run Scraper_opt with python
       run: |
         python "Scraper_opt.py"
