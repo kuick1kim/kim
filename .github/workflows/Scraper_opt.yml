@@ -25,11 +25,6 @@ jobs:
           python-version: '3.x'
           architecture: 'x64'
           
-    - name: Download chromedriver
-      run: |
-        wget -q -O tmp.zip https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
-        unzip tmp.zip && rm tmp.zip
-          
     - name: Setup Chromedriver
       uses: nanasess/setup-chromedriver@v1.0.1
  
@@ -39,6 +34,6 @@ jobs:
         pip install setuptools wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
-    - name: Run Scraper_opt with python
+    - name: Run Scraper with python
       run: |
         python "Scraper_opt.py"
