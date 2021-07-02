@@ -25,6 +25,7 @@ jobs:
           python-version: '3.x'
           architecture: 'x64'
           
+          
     - name: Setup Chromedriver
       uses: nanasess/setup-chromedriver@v1.0.1
  
@@ -33,6 +34,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update 
+        sudo apt-get install google-chrome-stable
+        
+        sudo apt install unzip
+        wget https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        
+        sudo apt-get update
+        sudo apt-get install python
+        sudo apt-get install python-pip
+
     
     - name: Run Scraper with python
       run: |
