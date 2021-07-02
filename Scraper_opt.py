@@ -24,4 +24,6 @@ driver.get(joonggonara_url)
 driver.implicitly_wait(3)
 driver.get_screenshot_as_file('naver_main_headless.png')
 
+print(joonggonara_url)
+
 driver.quit()
