@@ -135,7 +135,7 @@ s = smtplib.SMTP_SSL('smtp.daum.net')
 s.login(me, my_password)
 
 # 받는 사람 정보
-you = "kuick1@hanmail.net"
+you = "kuick1@naver.com"
 
 # 메일 기본 정보 설정
 msg = MIMEMultipart('alternative')
