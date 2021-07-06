@@ -1,30 +1,31 @@
-from selenium import webdriver
+import requests
+from pandas import DataFrame
 from bs4 import BeautifulSoup
-import datetime
-import smtplib
-from email.mime.text import MIMEText
+import re
+from datetime import datetime
 import os
+from selenium import webdriver
+import time
 
-from os.path import join, dirname
-from dotenv import load_dotenv
+from selenium.webdriver.common import keys
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email import encoders
 
-# 고정 변수
-dirver_loc = os.path.realpath(__file__)[:-10]+'/chromedriver'
+date = str(datetime.now())
+date = date[:date.rfind(':')].replace(' ', '_')
+date = date.replace(':','시') + '분'
 
-joonggonara_url = 'https://cafe.naver.com/joonggonara.cafe?iframe_url=/ArticleList.nhn%3Fsearch.clubid=10050146%26search.boardtype=L%26viewType=pc'
-
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('window-size=1920x1080')
-options.add_argument("disable-gpu")
-
-driver = webdriver.Chrome(dirver_loc, options=options)
-
-driver.get(joonggonara_url)
-driver.implicitly_wait(3)
-driver.get_screenshot_as_file('naver_main_headless.png')
-
-print(joonggonara_url)
-
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument("window-size=1100,2800")
+driver = webdriver.Chrome('chromedriver', chrome_options=chrome_options)
 driver.quit()
