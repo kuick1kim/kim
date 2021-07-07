@@ -37,7 +37,7 @@ url1 = 'http://www.paxnet.co.kr/stock/sise/trend/subject?searchTerm=1'
 driver.get(url1)
 time.sleep(3)
 driver.get_screenshot_as_file('opt01.jpg'.format(date))
-drivdr.quit()
+driver.quit()
 
 
 
