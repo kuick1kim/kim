@@ -218,7 +218,7 @@ you = "kuick1@naver.com"
 
 # 메일 기본 정보 설정
 msg = MIMEMultipart('alternative')
-msg['Subject'] = "김민상이 오늘의 옵션가격 텍스트 보냈습니다"
+msg['Subject'] = "김민상이 오늘의 옵션가격 TXT 보냈습니다"
 msg['From'] = me
 msg['To'] = you
 
