@@ -74,10 +74,10 @@ except:
     pass
 
 
-options.add_argument("--headless")
-options.add_argument("window-size=1100,2800")
-
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("window-size=1100,2800")
 action = ActionChains(driver)
+
 try :
     url20 = 'https://finance.daum.net/domestic/investors/DERIVATIVES'
     driver.get(url20)
