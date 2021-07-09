@@ -133,7 +133,7 @@ msg['From'] = me
 msg['To'] = you
 
 # 메일 내용 쓰기
-content = "           "
+content = "    https://finance.daum.net/domestic/investors/DERIVATIVES       "
 part2 = MIMEText(content, 'plain')
 msg.attach(part2)
 
