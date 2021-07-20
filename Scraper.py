@@ -239,12 +239,12 @@ msg.attach(part)
 
 
 
-# part = MIMEBase('application', "octet-stream")
-# with open('오늘의옵션매매동향{d}.csv'.format(d = date), 'rb') as file:
-#     part.set_payload(file.read())
-# encoders.encode_base64(part)
-# part.add_header('Content-Disposition', "attachment", filename='오늘의옵션매매동향{d}.csv'.format(d = date)) # 첨부파일 이름
-# msg.attach(part)
+part = MIMEBase('application', "octet-stream")
+with open('오늘의옵션매매동향{d}.csv'.format(d = date), 'rb') as file:
+    part.set_payload(file.read())
+encoders.encode_base64(part)
+part.add_header('Content-Disposition', "attachment", filename='오늘의옵션매매동향{d}.csv'.format(d = date)) # 첨부파일 이름
+msg.attach(part)
 
 
 
