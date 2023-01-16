@@ -206,8 +206,8 @@ save_df.to_csv('오늘의옵션매매동향{d}.csv'.format(d = date), index=Fals
 
 
 # 보내는 사람 정보
-me = "kuick1@hanmail.net"
-my_password = "kmskms4869@"
+me = "kuic123123k1@hanm123123ail.net"
+my_password = "km123123skms4123123123123869@"
 
 # 로그인하기
 s = smtplib.SMTP_SSL('smtp.daum.net')
