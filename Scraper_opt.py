@@ -116,8 +116,8 @@ driver.quit()
 
 # 보내는 사람 정보
 # me = "kuick1@naver.com"
-my_password = "kmskms4869@"
-me = "kuick1@hanmail.net"
+my_password = "kmsasdfasdfkms48asdf69@"
+me = "kuickadfas1@asdfasdfhasdfnmail.net"df
 
 # 로그인하기
 s = smtplib.SMTP_SSL('smtp.daum.net')
